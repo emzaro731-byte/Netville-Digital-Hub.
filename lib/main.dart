@@ -275,6 +275,7 @@ class _EnquiryPageState extends State<EnquiryPage> {
   final contact = TextEditingController();
   final details = TextEditingController();
   String service = services.first.title;
+  String paymentPreference = 'Request a Paystack payment link';
   bool busy = false;
 
   @override
@@ -296,7 +297,7 @@ class _EnquiryPageState extends State<EnquiryPage> {
       return;
     }
     setState(() => busy = true);
-    final message = 'Hello Netville Digital Hub!\nName: ${name.text.trim()}\nContact: ${contact.text.trim()}\nService: $service\nProject details: ${details.text.trim()}';
+    final message = 'Hello Netville Digital Hub!\nName: ${name.text.trim()}\nContact: ${contact.text.trim()}\nService: $service\nPayment preference: $paymentPreference\nProject details: ${details.text.trim()}';
     final uri = Uri.https('wa.me', '/$businessWhatsApp', {'text': message});
     try {
       final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -312,7 +313,7 @@ class _EnquiryPageState extends State<EnquiryPage> {
 
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(18), children: [
-        const SectionHeading(eyebrow: 'CONTACT US', title: 'Let’s build something useful.', subtitle: 'Share your idea and send your project enquiry directly to our WhatsApp.'),
+        const SectionHeading(eyebrow: 'CONTACT US', title: 'Order a service.', subtitle: 'Choose what you need, describe your project and request payment instructions through WhatsApp.'),
         const Card(child: Padding(padding: EdgeInsets.all(16), child: Row(children: [Icon(Icons.location_on_outlined, color: aqua), SizedBox(width: 10), Expanded(child: Text('Choba / UNIPORT, Rivers State, Nigeria\nWhatsApp: +234 808 847 6779', style: TextStyle(color: Colors.white70, height: 1.5)))]))),
         const SizedBox(height: 20),
         Card(child: Padding(padding: const EdgeInsets.all(18), child: Form(key: formKey, child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -327,15 +328,26 @@ class _EnquiryPageState extends State<EnquiryPage> {
             onChanged: (v) { if (v != null) setState(() => service = v); },
           ),
           const SizedBox(height: 13),
-          TextFormField(controller: details, minLines: 4, maxLines: 7, decoration: const InputDecoration(labelText: 'Project details', alignLabelWithHint: true, hintText: 'What do you want to build? What is your budget?')),
+          DropdownButtonFormField<String>(
+            value: paymentPreference,
+            decoration: const InputDecoration(labelText: 'Payment preference', prefixIcon: Icon(Icons.payment_outlined)),
+            items: const [
+              DropdownMenuItem(value: 'Request a Paystack payment link', child: Text('Request Paystack payment link')),
+              DropdownMenuItem(value: 'Request bank-transfer instructions', child: Text('Bank transfer instructions')),
+              DropdownMenuItem(value: 'Discuss payment options first', child: Text('Discuss payment options')),
+            ],
+            onChanged: (value) { if (value != null) setState(() => paymentPreference = value); },
+          ),
+          const SizedBox(height: 13),
+          TextFormField(controller: details, minLines: 4, maxLines: 7, decoration: const InputDecoration(labelText: 'Project details and budget', alignLabelWithHint: true, hintText: 'What do you want to build? What is your budget?')),
           const SizedBox(height: 18),
-          FilledButton.icon(onPressed: busy ? null : sendEnquiry, icon: const Icon(Icons.chat), label: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(busy ? 'Opening WhatsApp…' : 'Continue on WhatsApp'))),
+          FilledButton.icon(onPressed: busy ? null : sendEnquiry, icon: const Icon(Icons.chat), label: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(busy ? 'Opening WhatsApp…' : 'Send order request on WhatsApp'))),
         ]))),
         const SizedBox(height: 14),
         const Card(child: Padding(padding: EdgeInsets.all(17), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Icon(Icons.shield_outlined, color: aqua),
           SizedBox(width: 12),
-          Expanded(child: Text('Privacy note: this app demo does not upload enquiry details to a server. When configured, the message is handed to WhatsApp so you can review it before sending.', style: TextStyle(color: Colors.white60, height: 1.45, fontSize: 12))),
+          Expanded(child: Text('Order and payment note: no payment is collected in this app yet. We will confirm the agreed price and send the payment link or bank-transfer instructions through WhatsApp. Your message is handed to WhatsApp for you to review before sending.', style: TextStyle(color: Colors.white60, height: 1.45, fontSize: 12))),
         ]))),
       ]);
 }
