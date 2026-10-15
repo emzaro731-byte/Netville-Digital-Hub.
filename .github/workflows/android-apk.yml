@@ -1,4 +1,4 @@
-name: Build Netville Android APK
+name: Build Netville Android APK and App Bundle
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  build-apk:
+  build-android:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,12 +23,18 @@ jobs:
         run: flutter create --platforms=android --project-name netville_digital_hub --org com.netville.digitalhub .
       - name: Get dependencies
         run: flutter pub get
+      - name: Analyze Flutter app
+        run: flutter analyze
       - name: Build release APK
         run: flutter build apk --release
-      - name: Upload APK
+      - name: Build Play Store App Bundle
+        run: flutter build appbundle --release
+      - name: Upload Android builds
         uses: actions/upload-artifact@v4
         with:
-          name: netville-digital-hub-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: netville-digital-hub-android-builds
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
           if-no-files-found: error
           retention-days: 14
