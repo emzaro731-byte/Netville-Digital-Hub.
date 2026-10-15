@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: netville-digital-hub
+    runtime: static
+    buildCommand: echo "Preparing Netville Digital Hub website"
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
