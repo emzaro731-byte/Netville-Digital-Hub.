@@ -1,33 +1,37 @@
 # Netville Digital Hub
 
-A starter project for the Netville Digital Hub business, containing a responsive public website and a Flutter Android app.
+Netville Digital Hub includes a responsive business website and a Flutter Android app.
 
 ## Included
 
-- `index.html` — mobile-friendly business website with service listings and a project enquiry form.
-- `lib/main.dart` — Flutter app with Home, Services, and Enquiry screens.
-- `pubspec.yaml` — Flutter dependencies.
-- `.github/workflows/android-apk.yml` — builds a release APK when code is pushed to `main), and can also be run manually.
+- `index.html` — public website with service descriptions and an enquiry form.
+- `lib/main.dart` — Flutter Android app with Home, Services, Portfolio and Contact screens.
+- `pubspec.yaml` — Flutter package configuration, including WhatsApp link support.
+- `.github/workflows/android-apk.yml` — automatic Android release APK build on pushes to `main`, with manual workflow support.
 
-## Website
+## Publish the website
 
-The website can be published using GitHub Pages. In the repository, open **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save. GitHub Pages can take several minutes to publish the site.
+1. Open **Settings → Pages** in this repository.
+2. Choose **Deploy from a branch**.
+3. Select branch `main` and folder `/(root)`, then save.
+4. Wait for GitHub Pages to finish publishing.
 
-The expected project URL for this repository name is:
-`https://emzaro731-byte.github.io/Netville-Digital-Hub./`
+Because the repository name ends with a period, GitHub's project URL may be unusual. Use the Pages URL shown in **Settings → Pages** as the source of truth.
 
-## Build the Android APK
+## Build and download the Android APK
 
-1. Open the repository's **Actions** tab.
-2. Select **Build Netville Android APK**.
-3. Press **Run workflow** (or wait for a build after a push).
-4. Open the completed workflow run and download the `netville-digital-hub-apk` artifact.
+1. Open the **Actions** tab.
+2. Choose **Build Netville Android APK**.
+3. Tap **Run workflow**, if a run is not already in progress.
+4. Open a completed run and download the `netville-digital-hub-apk` artifact.
 
-The workflow generates the Android platform files, then builds the release APK.
+The workflow creates the Android platform files, resolves Flutter packages, and builds a release APK. The build must finish successfully before an APK artifact will be available.
 
-## Before launching publicly
+## Required setup before launch
 
-- Replace the placeholder WhatsApp number in `index.html` with the business WhatsApp number in international format without the plus sign.
-- Connect the app enquiry form to a real backend, email, or WhatsApp integration. The current form is a local demo and does not send customer data to a server.
-- Add your actual portfolio, contact details, service prices, privacy policy, and terms.
-- Do not put API keys, passwords, or private customer information in public source files.
+- In `lib/main.dart`, replace `businessWhatsApp = '2340000000000'` with the business WhatsApp number in international format without a plus sign or spaces.
+- In `index.html`, replace the placeholder WhatsApp number in the contact form script with the same business number.
+- Add real project examples and correct contact details. Portfolio cards currently show example concepts, not completed client work.
+- The app form opens WhatsApp after the number is configured. It does not currently save enquiries to a database.
+- Add a privacy policy and terms before collecting customer information at scale.
+- Never commit API keys, passwords, or private customer data into this public repository.
