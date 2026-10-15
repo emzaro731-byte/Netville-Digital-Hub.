@@ -313,7 +313,7 @@ class _EnquiryPageState extends State<EnquiryPage> {
   @override
   Widget build(BuildContext context) => ListView(padding: const EdgeInsets.all(18), children: [
         const SectionHeading(eyebrow: 'CONTACT US', title: 'Let’s build something useful.', subtitle: 'Share your idea and send your project enquiry directly to our WhatsApp.'),
-        const Card(child: Padding(padding: EdgeInsets.all(16), child: Row(children: [Icon(Icons.location_on_outlined, color: aqua), SizedBox(width: 10), Expanded(child: Text('Choba / UNIPORT, Rivers State, Nigeria\\nWhatsApp: +234 808 847 6779', style: TextStyle(color: Colors.white70, height: 1.5)))]))),
+        const Card(child: Padding(padding: EdgeInsets.all(16), child: Row(children: [Icon(Icons.location_on_outlined, color: aqua), SizedBox(width: 10), Expanded(child: Text('Choba / UNIPORT, Rivers State, Nigeria\nWhatsApp: +234 808 847 6779', style: TextStyle(color: Colors.white70, height: 1.5)))]))),
         const SizedBox(height: 20),
         Card(child: Padding(padding: const EdgeInsets.all(18), child: Form(key: formKey, child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           TextFormField(controller: name, textCapitalization: TextCapitalization.words, decoration: const InputDecoration(labelText: 'Your name', prefixIcon: Icon(Icons.person_outline)), validator: (v) => (v == null || v.trim().isEmpty) ? 'Enter your name' : null),
