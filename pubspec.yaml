@@ -1,13 +1,14 @@
 name: netville_digital_hub
 description: Netville Digital Hub business companion app.
 publish_to: "none"
-version: 1.0.0+1
+version: 1.1.0+2
 environment:
   sdk: ">=3.4.0 <4.0.0"
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  url_launcher: ^6.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
