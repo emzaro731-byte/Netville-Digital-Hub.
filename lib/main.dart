@@ -11,7 +11,7 @@ const line = Color(0xFF233C59);
 
 // Replace this placeholder with the business WhatsApp number in international
 // format without "+" or spaces, e.g. 2348012345678.
-const businessWhatsApp = '2340000000000';
+const businessWhatsApp = '2348088476779';
 
 class NetvilleApp extends StatelessWidget {
   const NetvilleApp({super.key});
